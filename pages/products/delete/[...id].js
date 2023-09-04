@@ -1,6 +1,17 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Delete = () => {
+    const router = useRouter()
+    const back = ()=>{
+        router.push('/products')
+    }
+    const {id} = router.query
+    const del = async()=>{
+        await axios.delete(`http://localhost:8080/api/products/${id}`)
+        router.push('/products')
+    }
   return (
 
       <main class="antialiased bg-gray-300 text-gray-900 font-sans overflow-x-hidden">
@@ -25,7 +36,7 @@ const Delete = () => {
                 </svg>
               </div>
               <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-                <p class="font-bold">Delete your account</p>
+                <p class="font-bold">Do you wish to delete this product?</p>
                 <p class="text-sm text-gray-700 mt-1">
                   You will lose all of your data by deleting your account. This
                   action cannot be undone.
@@ -33,10 +44,11 @@ const Delete = () => {
               </div>
             </div>
             <div class="text-center md:text-right mt-4 md:flex md:justify-center">
-              <button class="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
-                Delete Account
+              <button onClick= {del} class="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
+                Delete Product
               </button>
               <button
+              onClick={back}
                 class="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4
           md:mt-0 md:order-1"
               >
